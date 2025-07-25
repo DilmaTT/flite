@@ -240,14 +240,15 @@ export const Training = ({ isMobileMode = false }: TrainingProps) => {
                   <Card 
                     key={training.id} 
                     className={cn(
-                      'p-3 cursor-pointer transition-all duration-300',
+                      'cursor-pointer transition-all duration-300',
+                      isMobileMode ? 'py-1 px-2' : 'p-3',
                       isSelected ? 'bg-primary/10 border-primary' : 'hover:bg-muted/50'
                     )}
                     onClick={() => setSelectedTraining(prev => prev === training.id ? null : training.id)}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex-1 overflow-hidden">
-                        <h4 className="font-medium">{training.name}</h4>
+                        <h4 className="font-medium truncate">{training.name}</h4>
                         <div className={cn(
                           "transition-all duration-300 ease-in-out",
                           isMobileMode
@@ -271,34 +272,37 @@ export const Training = ({ isMobileMode = false }: TrainingProps) => {
                             <Button
                               size="sm"
                               variant="ghost"
+                              className="h-6 px-1"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setStatsModalTrainingId(training.id);
                               }}
                             >
-                              <BarChart2 className="h-4 w-4" />
+                              <BarChart2 className="h-3.5 w-3.5" />
                             </Button>
                             <Button
                               size="sm"
                               variant="ghost"
+                              className="h-6 px-1"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 handleStartTraining(training.id);
                               }}
                             >
-                              <Play className="h-4 w-4" />
+                              <Play className="h-3.5 w-3.5" />
                             </Button>
                           </>
                         )}
                         <Button
                           size="sm"
                           variant="ghost"
+                          className={isMobileMode ? "h-6 px-1" : ""}
                           onClick={(e) => {
                             e.stopPropagation();
                             handleDeleteTraining(training.id);
                           }}
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className={cn(isMobileMode ? "h-3.5 w-3.5" : "h-4 w-4")} />
                         </Button>
                       </div>
                     </div>
@@ -318,7 +322,7 @@ export const Training = ({ isMobileMode = false }: TrainingProps) => {
         </div>
 
         {/* Main Content */}
-        {(!isMobileMode || selectedTraining) && (
+        {!isMobileMode && (
           <div className={cn(
             "p-6",
             isMobileMode ? "order-1 flex-1" : "flex-1 overflow-y-auto"
